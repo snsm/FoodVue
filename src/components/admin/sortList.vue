@@ -18,19 +18,13 @@
                           <table class="am-table am-table-bd am-table-striped admin-content-table">
                               <thead>
                               <tr>
-                                  <th>ID</th><th>用户名</th><th>最后成交任务</th><th>成交订单</th>
+                                  <th>ID</th><th>用户名</th><th>排序</th><th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
 
-                              <tr>
-                                  <td>1</td><td>John Clark</td><td><a href="#">Business management</a></td> <td><span class="am-badge am-badge-success">+20</span></td>
-                              </tr>
-                              <tr>
-                                  <td>1</td><td>John Clark</td><td><a href="#">Business management</a></td> <td><span class="am-badge am-badge-success">+20</span></td>
-                              </tr>
-                              <tr>
-                                  <td>1</td><td>John Clark</td><td><a href="#">Business management</a></td> <td><span class="am-badge am-badge-success">+20</span></td>
+                              <tr v-for='item in sort'>
+                                  <td>{{ item.sort_id }}</td><td>{{ item.sort_name }}</td><td>{{ item.sort_order }}</td> <td>修改</td>
                               </tr>
 
                               </tbody>
@@ -56,8 +50,18 @@ import footer from './layouts/footer'
 
 export default {
   name: 'sort',
+  data() {
+    return {
+      sort:[]
+    }
+  },
   components: {
       'v-header': header,'v-menu':menu,'v-footer': footer
+  },
+  mounted(){
+    this.axios.get("http://www.food.skip.pw/api/sort-list?accessToken=7FkRQQIY2wpLibtpNIuYa3iVGPWoUscJSaRnPbkOLj7Z51znr0lvIzk2yEBk").then((response) => {
+        this.sort = response.data
+     })
   },
 }
 </script>
